@@ -7,26 +7,31 @@ type Props = {
     releaseDate?: string;
     genres?: Genre[];
 };
-export default function MovieInfo({ title, overview, voteAverage, releaseDate, genres }: Props) {
+export default function MovieInfo({
+                                      title,
+                                      overview,
+                                      voteAverage,
+                                      releaseDate,
+                                      genres,
+                                  }: Props) {
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <h1 style={{ margin: 0 }}>{title}</h1>
-            <div style={{ display: "flex", gap: 8, alignItems: "center", opacity: 0.9 }}>
+        <div className="movie-info">
+            <h1 className="movie-info-title">{title}</h1>
+            <div className="movie-info-rating">
                 <StarsRating value={voteAverage} />
                 <span>{voteAverage}</span>
             </div>
-            <div style={{ opacity: 0.8 }}>Release: {releaseDate || "—"}</div>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <div className="movie-info-release">
+                Release: {releaseDate || "—"}
+            </div>
+            <div className="movie-info-genres">
                 {(genres ?? []).map((g) => (
-                    <span
-                        key={g.id}
-                        style={{ padding: "4px 10px", border: "1px solid #999", borderRadius: 16 }}
-                    >
+                    <span key={g.id} className="movie-info-genre-pill">
             {g.name}
           </span>
                 ))}
             </div>
-            <div style={{ maxWidth: 900, lineHeight: 1.5 }}>
+            <div className="movie-info-overview">
                 {overview || "No overview"}
             </div>
         </div>

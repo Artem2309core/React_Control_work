@@ -11,7 +11,7 @@ async function request(path: string) {
     if (!res.ok) throw new Error(`${path} failed: ${res.status}`);
     return res.json();
 }
-// фыльми
+// фільми
 export function getMovies(page = 1, genreId?: number) {
     const genrePart = genreId ? `&with_genres=${genreId}` : "";
     return request(`/discover/movie?page=${page}${genrePart}`);
@@ -25,9 +25,9 @@ export function getGenres() {
 // пошук по назві
 export function searchMovies(query: string, page = 1) {
     return request(`/search/movie?query=${encodeURIComponent(query)}&page=${page}`);
-}
 
-// детал
+}
 export function getMovieById(id: number) {
     return request(`/movie/${id}`);
 }
+

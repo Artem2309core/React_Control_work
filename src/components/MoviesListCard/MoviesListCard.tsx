@@ -5,28 +5,16 @@ import StarsRating from "../StarsRating/StarsRating";
 type Props = { movie: Movie };
 export default function MoviesListCard({ movie }: Props) {
     return (
-        <Link
-            to={`/movies/${movie.id}`}
-            style={{ textDecoration: "none", color: "inherit" }}
-        >
-            <div
-                style={{
-                    border: "1px solid #ddd",
-                    borderRadius: 12,
-                    padding: 12,
-                    display: "flex",
-                    gap: 12,
-                }}
-            >
+        <Link to={`/movies/${movie.id}`} className="movie-card-link">
+            <div className="movie-card">
                 <PosterPreview path={movie.poster_path} title={movie.title} />
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    <div style={{ fontSize: 18, fontWeight: 600 }}>{movie.title}</div>
-
-                    <div style={{ display: "flex", gap: 8, alignItems: "center", opacity: 0.85 }}>
+                <div className="movie-card-body">
+                    <div className="movie-card-title">{movie.title}</div>
+                    <div className="movie-card-rating">
                         <StarsRating value={movie.vote_average} />
                         <span>{movie.vote_average}</span>
                     </div>
-                    <div style={{ opacity: 0.85 }}>
+                    <div className="movie-card-overview">
                         {movie.overview ? (
                             <>
                                 {movie.overview.slice(0, 220)}

@@ -14,29 +14,35 @@ type MovieDetails = {
     genres?: Genre[];
 };
 export default function MovieDetailsPage() {
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
     const movieId = Number(id);
     const [movie, setMovie] = useState<MovieDetails | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
-        if (!Number.isFinite(movieId)) {
+        if (!id || !Number.isFinite(movieId)) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setError("Invalid movie id");
             return;
         }
+        setLoading(true);
         setError(null);
+        setMovie(null);
         getMovieById(movieId)
             .then((data) => setMovie(data))
-            .catch((e) => setError(String(e)));
-    }, [movieId]);
+            .catch((e) => setError(String(e)))
+            .finally(() => setLoading(false));
+    }, [id, movieId]);
     return (
-        <div style={{ padding: 16 }}>
-            <Link to="/">← Back</Link>
-            {error && <div style={{ color: "crimson", marginTop: 12 }}>{error}</div>}
-            {!error && !movie && <div style={{ marginTop: 12 }}>Loading…</div>}
-            {movie && (
-                <div style={{ display: "flex", gap: 16, marginTop: 12 }}>
+        <div className="page">
+            <Link to="/" className="back-link">
+                ← Back
+            </Link>
+            {loading && <div className="loading-text">Loading…</div>}
+            {error && <div className="error-text">{error}</div>}
+            {movie && !error && (
+                <div className="details-layout">
                     <PosterPreview path={movie.poster_path} title={movie.title} />
-
                     <MovieInfo
                         title={movie.title}
                         overview={movie.overview}
@@ -49,4 +55,3 @@ export default function MovieDetailsPage() {
         </div>
     );
 }
-

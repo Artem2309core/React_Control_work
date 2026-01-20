@@ -5,34 +5,32 @@ type Props = {
     onQueryChange: (v: string) => void;
     onSearch: () => void;
     onReset: () => void;
-    onRandom: () => void;
 };
+
 export default function Header({
                                    query,
                                    onQueryChange,
                                    onSearch,
                                    onReset,
-                                   onRandom,
                                }: Props) {
     return (
-        <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 2 }}>
-            <h1 style={{ margin: 0 }}>Movies</h1>
+        <div className="header">
+            <h1 className="header-title">Movies</h1>
+
             <input
                 value={query}
                 onChange={(e) => onQueryChange(e.target.value)}
                 placeholder="Search movie..."
-                style={{ padding: 8, minWidth: 220 }}
+                className="header-search"
                 onKeyDown={(e) => {
                     if (e.key === "Enter") onSearch();
                 }}
             />
-            <button onClick={onSearch}>Пошук</button>
-            <button onClick={onReset}>Скинути</button>
-            <button onClick={onRandom}>рандом(ід фільму)</button>
 
+            <button onClick={onSearch}>Search</button>
+            <button onClick={onReset}>Reset</button>
 
-
-            <div style={{ marginLeft: "auto" }}>
+            <div className="header-user">
                 <UserInfo />
             </div>
         </div>

@@ -4,10 +4,13 @@ type Props = {
     movies: Movie[];
 };
 export default function MoviesList({ movies }: Props) {
+    if (!movies.length) {
+        return <div>No movies</div>;
+    }
     return (
-        <div style={{ display: "grid", gap: 12 }}>
-            {movies.map((m) => (
-                <MoviesListCard key={m.id} movie={m} />
+        <div className="movies-list">
+            {movies.map((movie) => (
+                <MoviesListCard key={movie.id} movie={movie} />
             ))}
         </div>
     );
